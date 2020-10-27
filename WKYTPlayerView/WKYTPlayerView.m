@@ -839,7 +839,9 @@ NSString static *const kWKYTPlayerSyndicationRegexPattern = @"^https://tpc.googl
                                  options:0
                                    range:NSMakeRange(0, [url.absoluteString length])];
     
-    if (ytMatch || adMatch || oauthMatch || staticProxyMatch || syndicationMatch) {
+    if ([[[url.path stringByReplacingOccurrencesOfString:@"/" withString:@""] lowercaseString] isEqualToString:@"ytscframe"]) {
+        return NO;
+    } else if (ytMatch || adMatch || oauthMatch || staticProxyMatch || syndicationMatch) {
         return YES;
     } else {
         [[UIApplication sharedApplication] openURL:url];
